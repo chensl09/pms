@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd"
+		>
+
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:pms.properties"/>
+
+	<!-- 包自动扫描 不扫描Controller注解-->
+	<context:component-scan base-package="com.mmd.pms">
+		<context:exclude-filter type="annotation"
+								expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 缓存管理器 使用Ehcache实现 -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:cache/ehcache.xml"/>
+		<property name="shared" value="true" />
+	</bean>
+
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close"
+			  p:driverClassName="${jdbc.mysql.driver}"
+			  p:url="${jdbc.mysql.url}"
+			  p:username="${jdbc.mysql.username}"
+			  p:password="${jdbc.mysql.password}"
+			  p:initialSize="${jdbc.pool.init}"
+			  p:minIdle="${jdbc.pool.minIdle}"
+			  p:maxActive="${jdbc.pool.maxActive}"/>
+			  <!--p:filters="stat,wall" -->
+
+	<!-- 配置事物管理类 -->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+			p:dataSource-ref="dataSource" />
+	
+	<!-- 开启注解式事物扫描 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- 产生sqlsessionfactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 分页过滤 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/mmd/pms/*/mapper/*.mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 自动扫描mapper接口-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+			p:basePackage="com.mmd.pms.**.mapper"
+			p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+	
+</beans>
