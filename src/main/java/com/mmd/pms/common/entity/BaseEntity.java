@@ -26,7 +26,7 @@ public class BaseEntity implements Serializable{
 
 
     //alt + insert
-    protected Integer id;  //主键，唯一标识符
+    protected String id;  //主键，唯一标识符
     //protected User createBy; //创建者
     //protected User updateBy; //更新者
     protected Date createDate; //创建时间
@@ -70,15 +70,15 @@ public class BaseEntity implements Serializable{
     public BaseEntity() {
     }
 
-    public BaseEntity(Integer id) {
+    public BaseEntity(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
