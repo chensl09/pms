@@ -27,19 +27,19 @@ public interface BaseDao<T> {
      * @param entity
      * @return
      */
-    int insert(T entity);
+    Integer insert(T entity);
 
     /**
      * 执行更新操作
      * @param entity
      * @return
      */
-    int update(T entity);
+    Integer update(T entity);
 
     /**
      * 执行删除操作
      * @param entity
      * @return
      */
-    int delete(T entity);
+    Integer delete(T entity);
 }

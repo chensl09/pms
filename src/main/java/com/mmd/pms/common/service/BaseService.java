@@ -59,7 +59,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity> {
      * @param entity
      * @return
      */
-    public boolean saveOrUpdate (T entity) {
+    public Boolean saveOrUpdate (T entity) {
         //判断Id是否为空
         //"   "
         int res = 0;
@@ -78,7 +78,7 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity> {
      * @param entity
      * @return
      */
-    public boolean delete (T entity) {
+    public Boolean delete (T entity) {
         int res = mapper.delete(entity);
         return res > 0;
     }
