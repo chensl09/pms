@@ -19,7 +19,7 @@ import java.util.Map;
 public class PictureController extends BaseController{
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @RequestMapping(value = "/test")
     @ResponseBody
     public Map<String, Object> test(){
         logger.info("进入到测试方法...");
