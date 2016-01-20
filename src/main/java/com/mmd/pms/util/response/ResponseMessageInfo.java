@@ -21,7 +21,6 @@ public class ResponseMessageInfo {
     @Value("#{messages.error}")
     private String error;
 
-
     public String getSuccess() {
         return success;
     }

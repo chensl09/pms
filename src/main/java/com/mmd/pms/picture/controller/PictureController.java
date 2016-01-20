@@ -1,7 +1,9 @@
 package com.mmd.pms.picture.controller;
 
+import com.mmd.pms.common.ResponseModel;
 import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.common.entity.BaseEntity;
+import com.mmd.pms.util.response.ResponseUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +23,7 @@ public class PictureController extends BaseController{
 
     @RequestMapping(value = "/test")
     @ResponseBody
-    public Map<String, Object> test(){
+    public ResponseModel test(){
         logger.info("进入到测试方法...");
 
         Map<String, Object> resData = new HashMap<String, Object>();
@@ -38,7 +40,9 @@ public class PictureController extends BaseController{
         resData.put("user2", null);
         resData.put("user3", new BaseEntity());
         resData.put("birthday", new Date());
-        return resData;
+
+        return setModelSuccessWithData(resData);
+
     }
 
 }

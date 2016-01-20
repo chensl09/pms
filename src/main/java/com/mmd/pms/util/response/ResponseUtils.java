@@ -1,5 +1,7 @@
 package com.mmd.pms.util.response;
 
+import com.mmd.pms.common.ResponseModel;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,4 +79,49 @@ public class ResponseUtils {
         return resMap;
     }
 
+    /**
+     * 有数据的成功操作
+     * @param object
+     * @param message
+     * @return
+     */
+    public static ResponseModel setModelSuccessWithData(Object object, String message){
+        return new ResponseModel(ResponseCode.success.getValue(), object, message);
+    }
+
+    /**
+     * 无返回数据的成功操作
+     * @param message
+     * @return
+     */
+    public static ResponseModel setModelSuccessNoData(String message){
+        return new ResponseModel(ResponseCode.success.getValue(), message);
+    }
+
+    /**
+     * 提示用户登录
+     * @param message
+     * @return
+     */
+    public static ResponseModel setModelToLogin(String message){
+        return new ResponseModel(ResponseCode.toLogin.getValue(), message);
+    }
+
+    /**
+     * 操作失败,且无数据返回
+     * @param message
+     * @return
+     */
+    public static ResponseModel setModelErrorNoData(String message){
+        return new ResponseModel(ResponseCode.error.getValue(), message);
+    }
+
+    /**
+     * 有数据返回的失败操作
+     * @param message
+     * @return
+     */
+    public static ResponseModel setModelErrorWithData(Object object, String message){
+        return new ResponseModel(ResponseCode.error.getValue(), object, message);
+    }
 }

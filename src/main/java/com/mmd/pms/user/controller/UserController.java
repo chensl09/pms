@@ -1,12 +1,14 @@
 package com.mmd.pms.user.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.mmd.pms.common.ResponseModel;
 import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.common.model.RequestHeaderModel;
+import com.mmd.pms.common.page.PageParam;
 import com.mmd.pms.user.entity.User;
 import com.mmd.pms.user.service.UserService;
 import com.mmd.pms.util.StringUtils;
 import com.mmd.pms.util.pass.PasswordUtil;
-import com.mmd.pms.util.response.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户控制Controller层
@@ -32,17 +33,26 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/list"}, method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> list(){
+    public ResponseModel list(){
         List<User> userList = userService.queryList(new User());
-        return ResponseUtils.buildSuccessObject(userList, responseMessageInfo.getSuccess());
+
+        return setModelSuccessWithData(userList);
     }
 
+    @RequestMapping(value = "/queryListWithPage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseModel queryListWithPage(PageParam pageParam){
+
+        PageInfo<User> pageInfo = userService.queryListWithPage(new User(), pageParam);
+
+        return setModelSuccessWithData(pageInfo);
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> login(@Valid User user,
+    public ResponseModel login(@Valid User user,
                                      BindingResult result,
                                      RequestHeaderModel headerModel, HttpServletRequest request){
 
@@ -58,7 +68,7 @@ public class UserController extends BaseController{
             }
 
             //如果严重没有通过,跳转提示
-            return ResponseUtils.buildSuccessObject(result.getAllErrors(), responseMessageInfo.getError());
+            return setModelErrorWithData(result.getAllErrors());
         }
 
         //从后台代码获取国际化信息
@@ -75,13 +85,13 @@ public class UserController extends BaseController{
             e.printStackTrace();
         }
 
-        return ResponseUtils.buildSuccessObject(user2, responseMessageInfo.getSuccess());
+        return setModelSuccessWithData(user2);
     }
 
 
     @RequestMapping("/reg")
     @ResponseBody
-    public Map<String, Object> reg(@Valid User user) throws Exception{
+    public ResponseModel reg(@Valid User user) throws Exception{
 
         String salt = StringUtils.buildSalt();
         user.setSalt(salt);
@@ -89,7 +99,9 @@ public class UserController extends BaseController{
         user.setUserType(User.UserType.customer.getValue());
 
         userService.saveOrUpdate(user);
-        return ResponseUtils.buildSuccessObject(null, responseMessageInfo.getSuccess());
+
+        return setModelSuccessNoData();
+
     }
 
 }
