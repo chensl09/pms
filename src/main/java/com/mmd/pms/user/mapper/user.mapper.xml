@@ -3,7 +3,22 @@
 
 <mapper namespace="com.mmd.pms.user.dao.UserDao">
 
-    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+    <!--二级缓存补充说明
+    　　1. 映射语句文件中的所有select语句将会被缓存。
+    　　2. 映射语句文件中的所有insert，update和delete语句会刷新缓存。
+    　　3. 缓存会使用Least Recently Used（LRU，最近最少使用的）算法来收回。
+    　　4. 缓存会根据指定的时间间隔来刷新。
+    　　5. 缓存会存储1024个对象
+    cache标签常用属性：
+    eviction="FIFO" 回收策略为先进先出
+    flushInterval="60000" 自动刷新时间60s
+    size="512" 最多缓存512个引用对象
+    readOnly="true" 只读
+
+    这种配置有一个缺点,就是有更新后则会把原来所有的缓存都清除,
+    我们可以用代码来写这个缓存,这样就可控制只会清除某个更新操作的那段
+    -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
     <sql id="userColumns">
         u.id,
@@ -36,5 +51,10 @@
         and u.user_type=#{userType}
         and u.del_flag = #{DEL_FLAG_NORMAL}
     </select>
+
+    <insert id="insert" parameterType="User">
+        insert into pms_user(login_name, salt, password, user_type, create_date, update_date)
+         VALUES(#{loginName}, #{salt}, #{password}, #{userType}, now(), now())
+    </insert>
 
 </mapper>

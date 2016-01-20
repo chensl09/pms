@@ -167,6 +167,14 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return sb.toString();
     }
 
+    /**
+     * 生成一个32位的盐,加密用的
+     * @return
+     */
+    public static String buildSalt(){
+        return getRandomString(32);
+    }
+
     public static void main(String[] args) {
         //密码生成盐从这里随机获取到长度为32位
        String str = StringUtils.getRandomString(32);

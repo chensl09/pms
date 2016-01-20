@@ -4,6 +4,7 @@ import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.common.model.RequestHeaderModel;
 import com.mmd.pms.user.entity.User;
 import com.mmd.pms.user.service.UserService;
+import com.mmd.pms.util.StringUtils;
 import com.mmd.pms.util.pass.PasswordUtil;
 import com.mmd.pms.util.response.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.parser.Entity;
 import javax.validation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -78,6 +78,20 @@ public class UserController extends BaseController{
         }
 
         return ResponseUtils.buildSuccessObject(user2, responseMessageInfo.getSuccess());
+    }
+
+
+    @RequestMapping("/reg")
+    @ResponseBody
+    public Map<String, Object> reg(@Valid User user) throws Exception{
+
+        String salt = StringUtils.buildSalt();
+        user.setSalt(salt);
+        user.setPassword(PasswordUtil.buildPassword(user.getPassword(), salt));
+        user.setUserType(User.UserType.customer.getValue());
+
+        userService.saveOrUpdate(user);
+        return ResponseUtils.buildSuccessObject(null, responseMessageInfo.getSuccess());
     }
 
 }
