@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
 	   xmlns:p="http://www.springframework.org/schema/p"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	   http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.1.xsd"
 		>
 
 	<!-- 加载配置文件 -->
@@ -72,19 +78,11 @@
 			p:basePackage="com.mmd.pms.**.dao"
 			p:sqlSessionFactoryBeanName="sqlSessionFactory" />
 
-	<!--国际化配置
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		&lt;!&ndash; 国际化信息所在的文件名 &ndash;&gt;
-		<property name="basename" value="message.messages" />
-		&lt;!&ndash; 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  &ndash;&gt;
-		<property name="useCodeAsDefaultMessage" value="true" />
-	</bean>-->
-
 	<!--配置文件中 提示字符串-->
 	<bean id="messages" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
-				<value>classpath:message/messages.properties</value>
+				<value>classpath:system/system.properties</value>
 			</list>
 		</property>
 	</bean>

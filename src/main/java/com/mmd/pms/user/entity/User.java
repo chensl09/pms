@@ -3,6 +3,8 @@ package com.mmd.pms.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mmd.pms.common.entity.BaseEntity;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;
 
@@ -32,6 +34,8 @@ public class User extends BaseEntity {
 
     }
 
+    @NotEmpty(message = "{com.mmd.pms.notEmpty}")
+    @Length(min = 6,max = 10, message = "{com.mmd.pms.nameLength}")
     private String loginName;
     private String password;
     private String salt;
