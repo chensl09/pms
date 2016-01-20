@@ -1,7 +1,7 @@
 package com.mmd.pms.user.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.mmd.pms.common.ResponseModel;
+import com.mmd.pms.common.model.ResponseModel;
 import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.common.model.RequestHeaderModel;
 import com.mmd.pms.common.page.PageParam;

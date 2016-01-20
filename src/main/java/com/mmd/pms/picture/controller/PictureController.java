@@ -1,12 +1,10 @@
 package com.mmd.pms.picture.controller;
 
-import com.mmd.pms.common.ResponseModel;
+import com.mmd.pms.common.model.ResponseModel;
 import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.common.entity.BaseEntity;
-import com.mmd.pms.util.response.ResponseUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;

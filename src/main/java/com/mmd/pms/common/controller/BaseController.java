@@ -1,6 +1,6 @@
 package com.mmd.pms.common.controller;
 
-import com.mmd.pms.common.ResponseModel;
+import com.mmd.pms.common.model.ResponseModel;
 import com.mmd.pms.common.model.RequestHeaderModel;
 import com.mmd.pms.util.response.ResponseMessageInfo;
 import com.mmd.pms.util.response.ResponseUtils;

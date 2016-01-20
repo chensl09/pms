@@ -1,6 +1,6 @@
 package com.mmd.pms.util.response;
 
-import com.mmd.pms.common.ResponseModel;
+import com.mmd.pms.common.model.ResponseModel;
 
 import java.util.HashMap;
 import java.util.Map;

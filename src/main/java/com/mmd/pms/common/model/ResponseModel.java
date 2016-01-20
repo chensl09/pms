@@ -1,4 +1,4 @@
-package com.mmd.pms.common;
+package com.mmd.pms.common.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
