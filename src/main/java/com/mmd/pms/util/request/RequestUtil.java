@@ -1,4 +1,4 @@
-package com.mmd.pms.util;
+package com.mmd.pms.util.request;
 
 import javax.servlet.http.HttpServletRequest;
 

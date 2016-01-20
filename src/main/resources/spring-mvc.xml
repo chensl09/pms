@@ -37,7 +37,7 @@
 				</property>
 				<property name="objectMapper">
 					<!-- 让返回json时值为null的返回"" -->
-					<bean class="com.mmd.pms.util.MyJsonObjectMapper">
+					<bean class="com.mmd.pms.util.json.MyJsonObjectMapper">
 						<!-- 处理responseBody 里面日期类型 -->
 						<property name="dateFormat">
 							<bean class="java.text.SimpleDateFormat">

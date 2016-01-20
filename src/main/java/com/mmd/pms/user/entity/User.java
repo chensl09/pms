@@ -69,6 +69,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @JsonIgnore
     public String getSalt() {
         return salt;
     }
