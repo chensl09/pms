@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.*;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 用户控制Controller层
@@ -50,15 +49,6 @@ public class UserController extends BaseController{
         logger.error("pmstoken = " + headerModel.getPmstoken());
 
         if(result.hasErrors()){
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
-
-            Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-            for (ConstraintViolation<User> constraintViolation : constraintViolations) {
-                logger.info("对象属性:" + constraintViolation.getPropertyPath());
-                logger.info("国际化key:" + constraintViolation.getMessageTemplate());
-                logger.info("错误信息:" + constraintViolation.getMessage());
-            }
 
             logger.info(result.getFieldError("loginName").getDefaultMessage());
             List<ObjectError> list = result.getAllErrors();

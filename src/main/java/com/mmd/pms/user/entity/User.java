@@ -34,8 +34,8 @@ public class User extends BaseEntity {
 
     }
 
-    @NotEmpty(message = "{com.mmd.pms.notEmpty}")
-    @Length(min = 6,max = 10, message = "{com.mmd.pms.nameLength}")
+    @NotEmpty
+    @Length(min = 5,max = 50)
     private String loginName;
     private String password;
     private String salt;

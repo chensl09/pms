@@ -17,6 +17,9 @@
 
     这种配置有一个缺点,就是有更新后则会把原来所有的缓存都清除,
     我们可以用代码来写这个缓存,这样就可控制只会清除某个更新操作的那段
+
+    两种方式一起去实现 , 一种是用这个配置,
+    一种是在serviceImpl中去手动添加缓存操作
     -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
