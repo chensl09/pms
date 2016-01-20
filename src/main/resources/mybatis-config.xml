@@ -8,6 +8,9 @@
         <setting name="logImpl" value="LOG4J" />  
     </settings>
 
-	<typeAliases></typeAliases>
+	<typeAliases>
+		<typeAlias type="com.mmd.pms.picture.entity.Picture" alias="Picture"/>
+		<typeAlias type="com.mmd.pms.user.entity.User" alias="User"/>
+	</typeAliases>
 	
 </configuration>

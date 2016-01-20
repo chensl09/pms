@@ -1,10 +1,13 @@
 package com.mmd.pms.common.dao;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
  * 所有数据库持久化操作超类
  */
+@Repository
 public interface BaseDao<T> {
 
     /**

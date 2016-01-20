@@ -69,7 +69,7 @@
 	
 	<!-- 自动扫描mapper接口-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-			p:basePackage="com.mmd.pms.**.mapper"
+			p:basePackage="com.mmd.pms.**.dao"
 			p:sqlSessionFactoryBeanName="sqlSessionFactory" />
 	
 </beans>

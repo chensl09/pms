@@ -2,6 +2,7 @@ package com.mmd.pms.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mmd.pms.user.entity.User;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
@@ -24,11 +25,10 @@ public class BaseEntity implements Serializable{
      */
     public static final String DEL_FLAG_DELETE = "1";
 
-
     //alt + insert
     protected String id;  //主键，唯一标识符
-    //protected User createBy; //创建者
-    //protected User updateBy; //更新者
+    protected User createBy; //创建者
+    protected User updateBy; //更新者
     protected Date createDate; //创建时间
     protected Date updateDate; //更新时间
     protected String delFlag = DEL_FLAG_NORMAL; //删除标志 （0 正常， 1 删除）
@@ -82,7 +82,6 @@ public class BaseEntity implements Serializable{
         this.id = id;
     }
 
-    /*
     @JsonIgnore
     public User getCreateBy() {
         return createBy;
@@ -99,7 +98,7 @@ public class BaseEntity implements Serializable{
 
     public void setUpdateBy(User updateBy) {
         this.updateBy = updateBy;
-    }*/
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateDate() {
