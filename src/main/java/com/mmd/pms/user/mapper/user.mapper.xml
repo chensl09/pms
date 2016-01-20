@@ -41,7 +41,13 @@
     </sql>
 
     <select id="queryList" parameterType="User" resultType="User">
-
+        select <include refid="userColumns"/>
+        from pms_user u
+        where
+        u.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="userType != null and userType !=''">
+            and u.user_type = #{userType}
+        </if>
     </select>
 
     <select id="queryUserByLoginName" resultType="User" parameterType="User">

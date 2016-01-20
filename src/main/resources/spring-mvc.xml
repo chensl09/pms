@@ -16,7 +16,17 @@
 		<context:include-filter type="annotation"
 								expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
+
+	<!-- 注册验证器 -->
+	<mvc:annotation-driven validator="validator" />
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+		<!-- 这里配置将使用上面国际化配置的messageSource -->
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -78,15 +88,6 @@
 		<property name="basename" value="message.messages" />
 		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->
 		<property name="useCodeAsDefaultMessage" value="true" />
-	</bean>
-
-	<!-- 注册验证器 -->
-	<mvc:annotation-driven validator="validator" />
-
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
-		<!-- 这里配置将使用上面国际化配置的messageSource -->
-		<property name="validationMessageSource" ref="messageSource"/>
 	</bean>
 
 </beans>

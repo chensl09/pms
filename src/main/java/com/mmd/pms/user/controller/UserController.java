@@ -33,6 +33,14 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> list(){
+        List<User> userList = userService.queryList(new User());
+        return ResponseUtils.buildSuccessObject(userList, responseMessageInfo.getSuccess());
+    }
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> login(@Valid User user,
