@@ -3,6 +3,9 @@ package com.mmd.pms.login;
 import com.mmd.pms.user.security.FormAuthFilter;
 import com.mmd.pms.user.security.Principal;
 import com.mmd.pms.util.UserUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,9 @@ public class LoginController {
 
     @RequestMapping (value = "/login", method = RequestMethod.POST)
     public String doLogin(HttpServletRequest request, Model model) {
+
+        Subject user = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter(""), request.getParameter(""));
 
         //判断用户是否已经登陆
         Principal principal = UserUtils.getPrincipal();

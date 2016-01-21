@@ -15,7 +15,7 @@
 				/static/** = anon
 				/login = authc
 				/logout = logout
-				/** = user
+				/** = auth
 			</value>
 		</constructor-arg>
 	</bean>
@@ -25,6 +25,7 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
 		<property name="successUrl" value="/index" />
+		<!--没有权限默认跳转的页面<property name="unauthorizedUrl" value="/system/error" />-->
 		<property name="filters">
 			<map>
 				<entry key="authc" value-ref="formAuthFilter"/>
