@@ -1,5 +1,6 @@
 package com.mmd.pms.common.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -9,6 +10,10 @@ public class ResponseModel {
 
     private Integer code;//返回的状态码
 
+    /**
+     * 指定返回的key为data, 为null时不返回
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JsonProperty(value = "data")
     private Object object;//返回的数据
 
