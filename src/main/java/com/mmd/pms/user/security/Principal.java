@@ -1,5 +1,7 @@
 package com.mmd.pms.user.security;
 
+import com.mmd.pms.user.entity.User;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,12 @@ public class Principal implements Serializable {
     private String id;
     private String name;
     private String loginName;
+
+    public Principal(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.loginName = user.getLoginName();
+    }
 
     public String getId() {
         return id;

@@ -13,9 +13,8 @@
 		<constructor-arg>
 			<value>
 				/static/** = anon
-				/login = anon
+				/login = authc
 				/logout = logout
-				/xx = authc
 				/** = user
 			</value>
 		</constructor-arg>
@@ -24,7 +23,7 @@
 	<!-- 安全认证过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/index" />
+		<property name="loginUrl" value="/login" />
 		<property name="successUrl" value="/index" />
 		<property name="filters">
 			<map>
