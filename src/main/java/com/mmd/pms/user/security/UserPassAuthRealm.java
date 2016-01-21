@@ -26,6 +26,9 @@ public class UserPassAuthRealm extends AuthorizingRealm{
         Principal principal = (Principal)getAvailablePrincipal(principalCollection);
         //添加当前用户相关的权限信息
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+
+        //todo 添加逻辑
+
         return info;
     }
 
@@ -39,6 +42,8 @@ public class UserPassAuthRealm extends AuthorizingRealm{
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
         UsernamePasswordToken authTocken = (UsernamePasswordToken)authenticationToken;
+
+        //todo 添加逻辑
 
         return new SimpleAuthenticationInfo();
     }
