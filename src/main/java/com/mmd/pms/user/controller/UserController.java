@@ -77,13 +77,6 @@ public class UserController extends BaseController{
         logger.info("message = " + message);*/
         logger.info("\nsuccess = " + responseMessageInfo.getSuccess());
         User user2 = userService.queryUserByLoginName(user.getLoginName(), User.UserType.customer.getValue());
-        try {
-            String pass = PasswordUtil.buildPassword(user2.getPassword(), user2.getSalt());
-            logger.info("buildPassword: " + pass);
-        } catch (UnsupportedEncodingException e) {
-            logger.error("报错了哦...", e);
-            e.printStackTrace();
-        }
 
         return setModelSuccessWithData(user2);
     }

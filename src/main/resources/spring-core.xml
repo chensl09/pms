@@ -37,7 +37,7 @@
 			  p:initialSize="${jdbc.pool.init}"
 			  p:minIdle="${jdbc.pool.minIdle}"
 			  p:maxActive="${jdbc.pool.maxActive}"
-			  p:filters="stat,wall"/>
+			  p:filters="stat,wall" />
 
 	<!-- 配置事物管理类 -->
 	<bean id="transactionManager"

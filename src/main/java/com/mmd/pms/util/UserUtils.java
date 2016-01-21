@@ -5,6 +5,7 @@ import com.mmd.pms.user.entity.User;
 import com.mmd.pms.user.security.Principal;
 import com.mmd.pms.user.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 

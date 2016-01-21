@@ -53,43 +53,37 @@ public class UserPassAuthRealm extends AuthorizingRealm{
             throws AuthenticationException {
         UsernamePasswordToken authTocken = (UsernamePasswordToken)authenticationToken;
 
-        //todo 添加逻辑
-       try{
-           User user = userService.queryUserByLoginName(authTocken.getUsername(), User.UserType.customer.getValue());
+       User user = userService.queryUserByLoginName(authTocken.getUsername(), User.UserType.customer.getValue());
 
-           if (user != null) {
-               if (Config.YES.equals(user.getLoginFlag())) {
+       if (user != null) {
+           if (Config.YES.equals(user.getLoginFlag())) {
 
-                   //得到输入的用户名
-                   String username = (String)authTocken.getUsername();
+               //得到输入的用户名
+               String username = (String)authTocken.getUsername();
 
-                   //得到输入的密码
-                   String password = new String(authTocken.getPassword());
+               //得到输入的密码
+               String password = new String(authTocken.getPassword());
 
-                   String newPass = PasswordUtil.buildPassword(password, user.getSalt());
+               String salt = user.getSalt();
 
-                   if(!newPass.equals(user.getPassword())) {
-                       //如果密码错误
-                       throw new IncorrectCredentialsException();
-                   }
-                   //如果身份认证验证成功，返回一个AuthenticationInfo实现；
-                   return new SimpleAuthenticationInfo(username, password, getName());
+               String inputPass = PasswordUtil.buildPassword(password, salt);
 
-                /*String salt = user.getSalt();
-
-
-
-                return new SimpleAuthenticationInfo(new Principal(user),
-                        user.getPassword(),
-                        ByteSource.Util.bytes(salt), getName());*/
-               } else {
-                   throw new AuthenticationException("pms:你已在其他地点登陆!");
+               if(!inputPass.equals(user.getPassword())) {
+                   //如果密码错误
+                   throw new IncorrectCredentialsException();
                }
+
+               //如果身份认证验证成功，返回一个AuthenticationInfo实现；
+               // //todo 添加逻辑 登录成功则修改当前登录状态与登录的信息
+               return new SimpleAuthenticationInfo(new Principal(user),
+                       password,ByteSource.Util.bytes(salt), getName());
+
            } else {
-               //如果用户名不存在
-               throw new UnknownAccountException();
+               throw new AuthenticationException("pms:你已在其他地点登陆!");
            }
-       }catch (Exception e){
+
+       } else {
+           //如果用户名不存在
            throw new UnknownAccountException();
        }
 

@@ -13,7 +13,7 @@ public class PasswordUtil {
      * @param salt
      * @return
      */
-    public static String buildPassword(String password, String salt) throws UnsupportedEncodingException {
+    public static String buildPassword(String password, String salt) {
         return MD5Util.md5Encode(MD5Util.md5Encode(password) + salt);
     }
 

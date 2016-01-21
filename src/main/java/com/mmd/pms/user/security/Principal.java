@@ -12,11 +12,13 @@ public class Principal implements Serializable {
 
     private String id;
     private String name;
+    private Integer userType;
     private String loginName;
 
     public Principal(User user) {
         this.id = user.getId();
         this.name = user.getName();
+        this.userType = user.getUserType();
         this.loginName = user.getLoginName();
     }
 
@@ -34,6 +36,14 @@ public class Principal implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
     public String getLoginName() {

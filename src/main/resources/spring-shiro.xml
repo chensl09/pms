@@ -15,7 +15,7 @@
 				/static/** = anon
 				/login = authc
 				/logout = logout
-				/** = auth
+				/** = user
 			</value>
 		</constructor-arg>
 	</bean>

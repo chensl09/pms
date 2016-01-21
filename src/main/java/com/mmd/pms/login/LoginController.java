@@ -1,5 +1,6 @@
 package com.mmd.pms.login;
 
+import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.user.security.FormAuthFilter;
 import com.mmd.pms.user.security.Principal;
 import com.mmd.pms.util.UserUtils;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * 登陆控制器
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String toLogin () {
@@ -29,13 +30,29 @@ public class LoginController {
     @RequestMapping (value = "/login", method = RequestMethod.POST)
     public String doLogin(HttpServletRequest request, Model model) {
 
-        Subject user = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter(""), request.getParameter(""));
-
         //判断用户是否已经登陆
         Principal principal = UserUtils.getPrincipal();
         if (principal != null) {
-            return "redirect:/index";
+
+            //用户名唯一
+            if(principal.getLoginName().equals(request.getParameter("username"))){
+
+                return "redirect:/index";
+
+            }else{
+                Subject subject = SecurityUtils.getSubject();
+                UsernamePasswordToken token = new UsernamePasswordToken(request.getParameter("username"),
+                        request.getParameter("password"), Boolean.valueOf(request.getParameter("rememberMe")));
+
+                subject.login(token);
+
+                if(subject.isAuthenticated()){
+                    logger.info("登录...");
+                    return "redirect:/index";
+                }
+
+            }
+
         }
 
         String username = WebUtils.getCleanParam(request, FormAuthFilter.DEFAULT_USERNAME_PARAM);
@@ -52,5 +69,9 @@ public class LoginController {
         return "sys/login";
     }
 
+    @RequestMapping(value = "/index")
+    public String index () {
+        return "sys/index";
+    }
 
 }
