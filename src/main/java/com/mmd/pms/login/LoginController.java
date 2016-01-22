@@ -4,6 +4,7 @@ import com.mmd.pms.common.controller.BaseController;
 import com.mmd.pms.user.security.FormAuthFilter;
 import com.mmd.pms.user.security.Principal;
 import com.mmd.pms.util.UserUtils;
+import com.mmd.pms.util.pass.PasswordUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -39,8 +40,11 @@ public class LoginController extends BaseController {
         Principal principal = UserUtils.getPrincipal();
         if (principal != null) {
 
-            //用户名唯一
-            if(principal.getLoginName().equals(username)){
+            String salt = principal.getSalt();
+
+            //用户名唯一, 切换用户再登录但原用户未退出，且再次输入的用户名密码正确
+            if(principal.getLoginName().equals(username)
+                    && PasswordUtil.buildToken(username, PasswordUtil.buildPassword(password, salt)).equals(principal.getToken())){
 
                 return "redirect:/index";
 
@@ -62,7 +66,6 @@ public class LoginController extends BaseController {
 
         String exception = (String)request.getAttribute(FormAuthFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
         String message = (String) request.getAttribute(FormAuthFilter.MESSAGE_PARAM);
-
 
         model.addAttribute(FormAuthFilter.DEFAULT_USERNAME_PARAM, username);
         model.addAttribute(FormAuthFilter.DEFAULT_REMEMBER_ME_PARAM, remenberMe);

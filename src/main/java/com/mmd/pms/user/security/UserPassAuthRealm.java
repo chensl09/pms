@@ -85,21 +85,16 @@ public class UserPassAuthRealm extends AuthorizingRealm{
                        password,ByteSource.Util.bytes(salt), getName());
 
            } else {
+               //todo 增加一个对这种类型异常的捕获
                throw new AuthenticationException("pms:你已在其他地点登陆!");
            }
 
        } else {
-           //如果用户名不存在
+           //如果用户名不存在  UnauthorizedException
            throw new UnknownAccountException();
        }
 
     }
 
-    /**
-     * 设定密码校验的算法与迭代次数
 
-    @PostConstruct
-    public void initCredentialsMatcher () {
-
-    } */
 }
