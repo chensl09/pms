@@ -36,10 +36,16 @@ public class UserPassAuthRealm extends AuthorizingRealm{
         //添加当前用户相关的权限信息
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        //todo 添加逻辑
+        //todo 添加逻辑,目前只是一个测试，需要关联数据库设计 用户角色与权限
         User user = userService.queryUserByLoginName(principal.getLoginName(), User.UserType.customer.getValue());
 
-        return info;
+        if(user != null){
+            info.addStringPermission("user");
+            info.addRole("客户");
+            return info;
+        }
+
+        return null;
     }
 
     /**
