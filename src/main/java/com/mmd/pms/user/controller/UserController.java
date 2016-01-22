@@ -8,6 +8,7 @@ import com.mmd.pms.common.page.PageParam;
 import com.mmd.pms.user.entity.User;
 import com.mmd.pms.user.service.UserService;
 import com.mmd.pms.util.StringUtils;
+import com.mmd.pms.util.pass.MD5Util;
 import com.mmd.pms.util.pass.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,7 +88,7 @@ public class UserController extends BaseController{
     public ResponseModel reg(@Valid User user) throws Exception{
 
         String salt = StringUtils.buildSalt();
-        user.setSalt(salt);
+        user.setSalt(MD5Util.md5Encode(salt));
         user.setPassword(PasswordUtil.buildPassword(user.getPassword(), salt));
         user.setUserType(User.UserType.customer.getValue());
 
