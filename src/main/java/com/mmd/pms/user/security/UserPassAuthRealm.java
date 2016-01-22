@@ -49,6 +49,7 @@ public class UserPassAuthRealm extends AuthorizingRealm{
     }
 
     /**
+     * kwkw
      * 进行登陆的认证
      * @param authenticationToken
      * @return
