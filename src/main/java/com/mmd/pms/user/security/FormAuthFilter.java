@@ -20,8 +20,6 @@ public class FormAuthFilter extends FormAuthenticationFilter {
 
     public static final String MESSAGE_PARAM = "message";
 
-    //public static final String DEFAULT_USERNAME_PARAM = "loginName";
-
     private String messageParam = MESSAGE_PARAM;
 
     public String getMessageParam() {

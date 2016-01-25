@@ -8,7 +8,6 @@ import com.mmd.pms.common.page.PageParam;
 import com.mmd.pms.user.entity.User;
 import com.mmd.pms.user.service.UserService;
 import com.mmd.pms.util.StringUtils;
-import com.mmd.pms.util.pass.MD5Util;
 import com.mmd.pms.util.pass.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,6 +77,13 @@ public class UserController extends BaseController{
         logger.info("message = " + message);*/
         logger.info("\nsuccess = " + responseMessageInfo.getSuccess());
         User user2 = userService.queryUserByLoginName(user.getLoginName(), User.UserType.customer.getValue());
+        try {
+            String pass = PasswordUtil.buildPassword(user2.getPassword(), user2.getSalt());
+            logger.info("buildPassword: " + pass);
+        } catch (UnsupportedEncodingException e) {
+            logger.error("报错了哦...", e);
+            e.printStackTrace();
+        }
 
         return setModelSuccessWithData(user2);
     }
@@ -88,7 +94,7 @@ public class UserController extends BaseController{
     public ResponseModel reg(@Valid User user) throws Exception{
 
         String salt = StringUtils.buildSalt();
-        user.setSalt(MD5Util.md5Encode(salt));
+        user.setSalt(salt);
         user.setPassword(PasswordUtil.buildPassword(user.getPassword(), salt));
         user.setUserType(User.UserType.customer.getValue());
 
