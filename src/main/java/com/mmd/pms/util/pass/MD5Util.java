@@ -1,8 +1,5 @@
 package com.mmd.pms.util.pass;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 
@@ -12,29 +9,22 @@ import java.security.MessageDigest;
  */
 public class MD5Util {
 
-    private static Logger logger = LoggerFactory.getLogger(MD5Util.class);
-
     /***
      * MD5加密 生成32位md5码
      * @param inStr 待加密字符串
      * @return 返回32位md5码
      */
-    public static String md5Encode(String inStr) {
+    public static String md5Encode(String inStr) throws UnsupportedEncodingException {
         MessageDigest md5 = null;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception e) {
-            logger.error("MD5Util初始化异常: ", e);
+            System.out.println(e.toString());
+            e.printStackTrace();
             return "";
         }
 
-        byte[] byteArray = new byte[0];
-        try {
-            byteArray = inStr.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            logger.error("MD5Util转换异常: ", e);
-        }
-
+        byte[] byteArray = inStr.getBytes("UTF-8");
         byte[] md5Bytes = md5.digest(byteArray);
         StringBuffer hexValue = new StringBuffer();
         for (int i = 0; i < md5Bytes.length; i++) {
